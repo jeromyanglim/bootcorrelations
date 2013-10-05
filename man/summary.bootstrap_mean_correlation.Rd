@@ -2,11 +2,17 @@
 \alias{summary.bootstrap_mean_correlation}
 \title{Summary output for bootstrap_mean_correlation object}
 \usage{
-  summary.bootstrap_mean_correlation(x, digits = 3,
-    verbose = FALSE)
+  \method{summary}{bootstrap_mean_correlation} (x,
+    digits = 3, verbose = FALSE)
 }
 \arguments{
   \item{x}{object of class bootstrap_mean_correlation}
+
+  \item{digits}{positive intenger: number of decimal points
+  to display. Numbers are passed to round(x, digits)}
+
+  \item{verbose}{logical. Only print correlation matrices
+  if TRUE.}
 }
 \description{
   Summary output including descriptive statistics and

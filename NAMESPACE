@@ -1,2 +1,2 @@
+S3method(summary,bootstrap_mean_correlation)
 export(bootstrap_mean_correlation)
-export(summary.bootstrap_mean_correlation)

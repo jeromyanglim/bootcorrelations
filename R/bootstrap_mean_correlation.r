@@ -51,8 +51,12 @@ bootstrap_mean_correlation <- function(set1, set2, data, iterations=10000, ci=.9
 #' @title Summary output for bootstrap_mean_correlation object
 #' 
 #' @description Summary output including descriptive statistics and bootstrap results
+#' 
 #' @param x object of class bootstrap_mean_correlation
-#' @export
+#' @param digits positive intenger: number of decimal points to display. Numbers are passed to round(x, digits)
+#' @param verbose logical. Only print correlation matrices if TRUE.
+#' @method summary bootstrap_mean_correlation
+#' @export 
 #' @examples library(MASS) 
 #' r <- matrix(NA, ncol=6, nrow=6)
 #' r[1:3, 1:3] <- .1 # set 1 population mean r
@@ -69,27 +73,24 @@ bootstrap_mean_correlation <- function(set1, set2, data, iterations=10000, ci=.9
 #' v$set2 <- c('b1', 'b2', 'b3')
 #' fit <- bootstrap_mean_correlation(v$set1, v$set2, simulated_data)
 #' summary(fit, verbose=TRUE)
-
 summary.bootstrap_mean_correlation <- function(x, digits=3, verbose=FALSE) {
     cat('\nBOOTSTRAPPED TEST OF DIFFERENCE IN AVERAGE CORRELATIONS\n')
     
-    cat('\nDESCRIPTION\n')
+    cat('nDESCRIPTION')
     cat('\nn =', nrow(x$data))
     cat('\nSet 1:', x$set1)
-    cat('\nSet 2:', x$set2)
-    
+    cat('\nSet 2:', x$set2)    
     
     cat('\n\nAVERAGE CORRELATIONS:\n')
     cat('Set1 mean r=', round(x$mean_cor1, digits),'\n')
     cat('Set2 mean r=', round(x$mean_cor2, digits),'\n')
     cat('Difference in mean r (set1 - set2)=', round(x$mean_cor1 - x$mean_cor2, digits), '\n')
     
-    
-    cat('\nBootstrap Confidence Interval:', x$ci)
     cat('\nBOOTSTRAP SUMMARY:\n')
-    print(summary(x$boot_results))
+    print(x$boot_results)
     cat('\n')
         
+    cat('\nBootstrap Confidence Interval:', x$ci)
     print(boot.ci(x$boot_results, conf=x$ci))
     
     
