@@ -27,7 +27,7 @@
   confidence intervals on this difference
 }
 \examples{
-library(MASS)
+library(MASS) 
 r <- matrix(NA, ncol=6, nrow=6)
 r[1:3, 1:3] <- .1 # set 1 population mean r
 r[4:6, 4:6] <- .5 # set population mean r

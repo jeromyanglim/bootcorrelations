@@ -18,21 +18,7 @@ mean_diff_correlation <- function(d, ind, set1, set2) {
 #' @param iterations positive integer indicating number of bootstrap iterations to run
 #' @param ci number between 0 and 1 indicating size of bootstrap confidence interval
 #' @export
-#' @examples library(MASS) 
-#' r <- matrix(NA, ncol=6, nrow=6)
-#' r[1:3, 1:3] <- .1 # set 1 population mean r
-#' r[4:6, 4:6] <- .5 # set population mean r
-#' r[1:3, 4:6] <- .3
-#' r[4:6, 1:3] <- .3
-#' diag(r) <- 1
-#' colnames(r) <- c('a1', 'a2', 'a3', 'b1', 'b2', 'b3')
-#' x <- 1:3
-#' simulated_data <- mvrnorm(n=50, mu=rep(0, 6), Sigma=r)
-#' colnames(simulated_data) <- colnames(r)
-#' v <- list()
-#' v$set1 <-  c('a1', 'a2', 'a3')
-#' v$set2 <- c('b1', 'b2', 'b3')
-#' bootstrap_mean_correlation(v$set1, v$set2, simulated_data)
+#' @example examples/bootstrap_mean_correlation.r
 bootstrap_mean_correlation <- function(set1, set2, data, iterations=10000, ci=.95) {
     boot_results <- boot(data[,c(set1, set2)], statistic=mean_diff_correlation, R=iterations,
                          set1=set1, set2=set2)
@@ -57,22 +43,7 @@ bootstrap_mean_correlation <- function(set1, set2, data, iterations=10000, ci=.9
 #' @param verbose logical. Only print correlation matrices if TRUE.
 #' @method summary bootstrap_mean_correlation
 #' @export 
-#' @examples library(MASS) 
-#' r <- matrix(NA, ncol=6, nrow=6)
-#' r[1:3, 1:3] <- .1 # set 1 population mean r
-#' r[4:6, 4:6] <- .5 # set population mean r
-#' r[1:3, 4:6] <- .3
-#' r[4:6, 1:3] <- .3
-#' diag(r) <- 1
-#' colnames(r) <- c('a1', 'a2', 'a3', 'b1', 'b2', 'b3')
-#' x <- 1:3
-#' simulated_data <- mvrnorm(n=50, mu=rep(0, 6), Sigma=r)
-#' colnames(simulated_data) <- colnames(r)
-#' v <- list()
-#' v$set1 <-  c('a1', 'a2', 'a3')
-#' v$set2 <- c('b1', 'b2', 'b3')
-#' fit <- bootstrap_mean_correlation(v$set1, v$set2, simulated_data)
-#' summary(fit, verbose=TRUE)
+#' @example examples/summary.bootstrap_mean_correlation.r
 summary.bootstrap_mean_correlation <- function(x, digits=3, verbose=FALSE) {
     cat('\nBOOTSTRAPPED TEST OF DIFFERENCE IN AVERAGE CORRELATIONS\n')
     
