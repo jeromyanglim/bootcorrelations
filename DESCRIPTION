@@ -1,0 +1,18 @@
+Package: bootcorrelations
+Type: Package
+Title: Experimental package for bootstrap tests on correlation matrices.
+Version: 0.1
+Date: 2013-10-05
+Author: Who wrote it
+Maintainer: Jeromy Anglim <jkanglim@gmail.com>
+Description: This is my first experiment with creating a package. Currently it
+    performs bootstrapping to test whether the average correlation in one set
+    of variables differs from the average correlation in a second set of
+    variables. However, I might add some more functionality in the future.
+Imports:
+    boot
+Suggests:
+    MASS
+License: GPL
+Collate:
+    'bootstrap_mean_correlation.r'
