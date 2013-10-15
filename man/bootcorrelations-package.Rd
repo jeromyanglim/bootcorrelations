@@ -12,7 +12,7 @@
 }
 \seealso{
   The main function in this package is
-  \code{\link{bootstrap_mean_correlation}}. The summary
-  method can then be applied to the returned object.
+  \code{\link{boot_mean_cor_diff}}. The summary method can
+  then be applied to the returned object.
 }
 

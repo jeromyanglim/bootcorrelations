@@ -12,7 +12,8 @@ Description: This is my first experiment with creating a package. Currently it
 Depends:
     boot
 Suggests:
-    MASS
+    MASS,
+    testthat
 License: GPL-2
 Collate:
     'bootstrap_mean_correlation.r'

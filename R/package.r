@@ -5,6 +5,6 @@
 #' @name bootcorrelations-package
 #' @aliases bootcorrelations
 #' @author Jeromy Anglim
-#' @seealso The main function in this package is \code{\link{bootstrap_mean_correlation}}. 
+#' @seealso The main function in this package is \code{\link{boot_mean_cor_diff}}. 
 #' The summary method can then be applied to the returned object.
 NULL

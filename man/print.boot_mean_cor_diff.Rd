@@ -1,12 +1,12 @@
-\name{print.bootstrap_mean_correlation}
-\alias{print.bootstrap_mean_correlation}
-\title{Print output for bootstrap_mean_correlation object}
+\name{print.boot_mean_cor_diff}
+\alias{print.boot_mean_cor_diff}
+\title{Print output for boot_mean_cor_diff object}
 \usage{
-  \method{print}{bootstrap_mean_correlation} (x,
-    digits = 3, verbose = FALSE, ...)
+  \method{print}{boot_mean_cor_diff} (x, digits = 3,
+    verbose = TRUE, ...)
 }
 \arguments{
-  \item{x}{object of class bootstrap_mean_correlation}
+  \item{x}{object of class boot_mean_cor_diff}
 
   \item{digits}{positive intenger: number of decimal points
   to display. Numbers are passed to round(x, digits)}
@@ -23,7 +23,8 @@
 }
 \examples{
 data(twosetsim)
-fit <- bootstrap_mean_correlation(twosetsim$set1, twosetsim$set2, twosetsim$data, iterations=1000)
+fit <- boot_mean_cor_diff(twosetsim$set1, twosetsim$set2,
+       twosetsim$data, iterations=1000)
 print(fit, verbose=TRUE)
 }
 
