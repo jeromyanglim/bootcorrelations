@@ -1,0 +1,68 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{An Introduction to the bootcorrelations package}
+-->
+
+# An Introduction to the `bootcorrelations` package
+
+I developed the `bootcorrelations` package (a) to help me learn about writing packages, and (b) write some functions that perform a bootstrap test of whether the average correlation in one set of variables differ from the correlation in another set. It is assumed that the two sets of variables are measured on the same cases.
+
+The motivation for this function comes from work on the Big 5 personality factors (Extraversion, Emotional Stability, Conscientiousness, Openness, and Agreeableness). There is discussion about whether these five factors are correlated both theoretically and in terms of measured variables. Several studies have shown modest correlations between the Big 5. There is also some research to suggest that the size of the average correlation increases due to various contextual factors. 
+
+Note that the analysis makes most sense where all or most correlations are positive. If necessary variables are typically reversed to ensure mostly positive correlations. For example, in the Big 5 personality test example, neuroticism is reversed to create what is labelled "emotional stability". This typically leads to positive correlations whereas by default neuroticism often correlates negatively with the other Big 5 factors.
+
+# A simple example
+Let's simulate some sample data.
+
+The function `generate_correlated_data` is an internal function for creating sample datasets suited for comparison of average correlations.
+Specifically, it creates a dataset with `n` observations and six variables. The six variables are made up of two sets: set 1 is labelled a1, a2, a3, and set 2 is labelled b1, b2, b3.
+The data is drawn from a multivariate standard normal distribution where the correlations within and between sets are specified in the function.
+
+
+```{r}
+library(bootcorrelations)
+set.seed(1234)
+x <- bootcorrelations:::generate_correlated_data(n=100, r_set1=.3, r_set2=.5, r_set1_set2=.2)
+x$set1
+x$set2
+head(x$data)
+```
+
+We can examine the sample correlations.
+
+```{r}
+round(cor(x$data), 2)
+```
+On the face of it, the correlations between set1 look a little smaller than set 2. But is this a significant difference? How can we quantify our uncertainty regarding the population difference?
+
+We can use the `boot_mean_cor_diff` function.
+It uses the `boot` package to perform a bootstrapping on the mean difference between average correlations across the two sets of variables. To run the function, the names of the variables in set1 and set2 are specified as well as the data frame containing those variables.  To control the bootstrapping `iterations` is specified. 1,000 iterations should give reasonable estimates, but more is better in order to remove imprecision associated with the boostrapping process. So 10,000, 100,000, or more would be suitable for published results.
+
+```{r}
+fit <- boot_mean_cor_diff(x$set1, x$set2, x$data, iterations=1000, ci=.95)
+str(fit)
+```
+
+The following analysis shows the structure of the returned object.
+
+* `t0` is the mean of the bootstrapped estimates 
+* `t` is the vector bootstrapped estimates
+
+There is an associated print method `print.boot_mean_cor_diff` for the returned object which is called by default when displaying the returned object that displays the results in a more readable format. To make the results slightly clearer, I might flips the sets around (i.e.., do set2 - set1 because set 2 has the larger average correlation):
+
+```{r}
+# or use print(fit)
+fit <- boot_mean_cor_diff(x$set2, x$set1, x$data, iterations=1000, ci=.95)
+fit
+```
+
+The `print` method outputs a range of descriptive statistics and results of the bootstrap analysis. For instance, the sample size, set 1 correlation matrix, set correlation matrix and average correlations are displayed. In addition the sample average difference in the correlation is also displayed. 
+
+The bootstrap analysis can be used to develop confidence intervals. In this case 95% percent confidence intervals are reported.
+Various bootstrap confidence intervals are reported by the `boot.ci` function in the `boot` package. See `?boot.ci` for more information. In this case, the differences are fairly minor. If you are looking to choose one, the `BCa` method may be a good choice.
+
+In the present case we might write up the results as follows:
+
+> The average sample correlation for variables a1, a2 and a3 was r=.29, and for b1, b2, and ,b3 was r=.49, corresponding to a .20 sample difference. Using BCa bootstrap confidence intervals using 1,000 bootsrapped iterations, the 95% confidence interval for the difference in average correlations was (0.04 to 0.36). Given this does not include zero we may infer that set 2 has a significantly larger average correlation.
+
+
