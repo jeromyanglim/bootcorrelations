@@ -1,0 +1,10 @@
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{rnw test}
+\documentclass{article}
+
+\begin{document}
+
+test
+
+
+\end{document}

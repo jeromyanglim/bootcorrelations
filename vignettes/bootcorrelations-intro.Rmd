@@ -1,0 +1,11 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{An Introduction to the bootcorrelations package}
+-->
+
+# An Introduction to the `bootcorrelations` package
+========================================================
+
+```{r}
+cat('test')
+```

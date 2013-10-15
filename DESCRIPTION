@@ -13,10 +13,13 @@ Depends:
     boot
 Suggests:
     MASS,
-    testthat
+    testthat,
+    knitr
 License: GPL-2
+VignetteBuilder: knitr
 Collate:
     'bootstrap_mean_correlation.r'
     'package.r'
     'data.r'
     'generate_correlations.r'
+    'build-rmarkdown.r'
